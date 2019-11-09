@@ -1,4 +1,4 @@
-package com.kirilo.patterns.creational.singleton;
+package com.kirilo.patterns.creational.singleton.singletons;
 
 import java.util.Objects;
 

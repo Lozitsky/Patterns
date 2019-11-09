@@ -1,84 +1,89 @@
 package com.kirilo.patterns.creational.singleton;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Arrays;
+import com.kirilo.patterns.creational.singleton.singletons.*;
 
 public class ClientCode {
     public static void main(String[] args) {
 
-        startTestSingleton(EagerInitialized.class, false);
+        startTestSingleton(EagerInitializedSingleton.class, false);
+        startTestSingleton(EagerInitializedSingleton.class, true);
 
-        startTestSingleton(EagerInitialized.class, true);
+        startTestSingleton(StaticBlockInitializedSingleton.class, false);
+        startTestSingleton(StaticBlockInitializedSingleton.class, true);
 
-        startTestSingleton(LazyInitialized.class, false);
+        startTestSingleton(LazyInitializedSingleton.class, false);
+        startTestSingleton(LazyInitializedSingleton.class, true);
 
-        startTestSingleton(LazyInitialized.class, true);
+        startTestSingleton(ThreadSafeSingleton.class, false);
+        startTestSingleton(ThreadSafeSingleton.class, true);
+
+        startTestSingleton(BillPughSingleton.class, false);
+        startTestSingleton(BillPughSingleton.class, true);
 
     }
 
     private static void startTestSingleton(Class<? extends AbstractSingleton> aClass, boolean isParameters) {
-        try {
-            Object invoke;
-            Object invoke2;
-            if (isParameters) {
-                invoke = aClass.getDeclaredMethod("getInstance", String.class, Integer.class).invoke(null, aClass.getSimpleName(), 1000);
-                invoke2 = aClass.getDeclaredMethod("getInstance", String.class, Integer.class).invoke(null, aClass.getSimpleName(), 1000);
-            } else {
-                invoke = aClass.getDeclaredMethod("getInstance").invoke(null);
-                invoke2 = aClass.getDeclaredMethod("getInstance").invoke(null);
-            }
-            AbstractSingleton singleton;
-            AbstractSingleton anotherSingleton;
-            AbstractSingleton reflectionSingleton = null;
-            switch (aClass.getSimpleName()) {
-                case "EagerInitialized":
-                    singleton = (EagerInitialized) invoke;
-                    anotherSingleton = (EagerInitialized) invoke2;
-                    break;
-                case "LazyInitialized":
-                    singleton = (LazyInitialized) invoke;
-                    anotherSingleton = (LazyInitialized) invoke2;
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + aClass.getSimpleName());
-            }
-            testSingleton(singleton, anotherSingleton, reflectionSingleton, isParameters);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
+
+        AbstractSingleton singleton;
+        AbstractSingleton anotherSingleton;
+        switch (aClass.getSimpleName()) {
+            case "EagerInitializedSingleton":
+                if (!isParameters) {
+                    singleton = EagerInitializedSingleton.getInstance();
+                    anotherSingleton = EagerInitializedSingleton.getInstance();
+                } else {
+                    singleton = EagerInitializedSingleton.getInstance(aClass.getSimpleName(), 1000);
+                    anotherSingleton = EagerInitializedSingleton.getInstance(aClass.getSimpleName(), 1000);
+                }
+                break;
+            case "LazyInitializedSingleton":
+                if (!isParameters) {
+                    singleton = LazyInitializedSingleton.getInstance();
+                    anotherSingleton = LazyInitializedSingleton.getInstance();
+                } else {
+                    singleton = LazyInitializedSingleton.getInstance(aClass.getSimpleName(), 1000);
+                    anotherSingleton = LazyInitializedSingleton.getInstance(aClass.getSimpleName(), 1000);
+                }
+                break;
+            case "StaticBlockInitializedSingleton":
+                if (!isParameters) {
+                    singleton = StaticBlockInitializedSingleton.getInstance();
+                    anotherSingleton = StaticBlockInitializedSingleton.getInstance();
+                } else {
+                    singleton = StaticBlockInitializedSingleton.getInstance(aClass.getSimpleName(), 1000);
+                    anotherSingleton = StaticBlockInitializedSingleton.getInstance(aClass.getSimpleName(), 1000);
+                }
+                break;
+            case "ThreadSafeSingleton":
+                if (!isParameters) {
+                    singleton = ThreadSafeSingleton.getInstance();
+                    anotherSingleton = ThreadSafeSingleton.getInstance();
+                } else {
+                    singleton = ThreadSafeSingleton.getInstance(aClass.getSimpleName(), 1000);
+                    anotherSingleton = ThreadSafeSingleton.getInstance(aClass.getSimpleName(), 1000);
+                }
+                break;
+            case "BillPughSingleton":
+                if (!isParameters) {
+                    singleton = BillPughSingleton.getInstance();
+                    anotherSingleton = BillPughSingleton.getInstance();
+                } else {
+                    singleton = BillPughSingleton.getInstance(aClass.getSimpleName(), 1000);
+                    anotherSingleton = BillPughSingleton.getInstance(aClass.getSimpleName(), 1000);
+                }
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + aClass.getSimpleName());
         }
+        testSingleton(singleton, anotherSingleton, isParameters);
     }
 
     // https://stackoverflow.com/a/14443867/9586230
-    private static void testSingleton(AbstractSingleton singleton, AbstractSingleton anotherSingleton, AbstractSingleton reflectionSingleton, boolean isMethodWithParameters) {
-//        Constructor<?>[] constructors = singleton.getClass().getDeclaredConstructors();
-        Method[] methods = singleton.getClass().getDeclaredMethods();
+    private static void testSingleton(AbstractSingleton singleton, AbstractSingleton anotherSingleton, boolean isMethodWithParameters) {
 
-//        for (Constructor<?> constructor : constructors) {
-        for (Method method : methods) {
-            method.setAccessible(true);
-//            Class<?>[] parameterTypes = constructor.getParameterTypes();
-            Class<?>[] parameterTypes = method.getParameterTypes();
+        AbstractSingleton reflectionSingleton = new ReflectionFactory().invoke(singleton.getClass(), "Reflection", isMethodWithParameters);
 
-            String parameters = Arrays.toString(parameterTypes);
-            System.out.println("==========================Test for " + singleton.getClass().getSimpleName() + " Singleton======================================");
-            System.out.println("Method parameters: " + parameters);
-            try {
-                if (singleton.getClass().equals(EagerInitialized.class)) {
-                    reflectionSingleton = (EagerInitialized) (parameters.equals("[]") ? (!isMethodWithParameters) ? method.invoke(null) : null : isMethodWithParameters ? method.invoke(null, "Reflection Eager Singleton", 1000) : null);
-                } else if (singleton.getClass().equals(LazyInitialized.class)) {
-                    reflectionSingleton = (LazyInitialized) (parameters.equals("[]") ? (!isMethodWithParameters) ? method.invoke(null) : null : isMethodWithParameters ? method.invoke(null, "Reflection Lazy Singleton", 1000) : null);
-                } else {
-//                    reflectionSingleton = (AbstractSingleton) (parameters.equals("[]") ? constructor.newInstance() : constructor.newInstance("default Singleton", 1000));
-                    reflectionSingleton = (AbstractSingleton) (parameters.equals("[]") ? (!isMethodWithParameters) ? method.invoke(null) : null : isMethodWithParameters ? method.invoke(null, "Reflection Abstract Singleton", 1000) : null);
-                }
-                if (reflectionSingleton != null) {
-                    break;
-                }
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
-        }
+        System.out.println("\n==========================Test for " + singleton.getClass().getSimpleName() + (isMethodWithParameters ? " with parameters" : "") + "======================================\n");
         ThreadSafeTest.print("singleton", singleton);
         ThreadSafeTest.print("anotherSingleton", anotherSingleton);
         ThreadSafeTest.print("\nGet Singleton using reflection."

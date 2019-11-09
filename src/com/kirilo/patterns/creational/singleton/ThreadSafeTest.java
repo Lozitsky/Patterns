@@ -1,13 +1,27 @@
 package com.kirilo.patterns.creational.singleton;
 
-import java.lang.reflect.InvocationTargetException;
+import com.kirilo.patterns.creational.singleton.singletons.*;
 
 public class ThreadSafeTest {
     public static void main(String[] args) {
-        RunThreads.invoke(EagerInitialized.class, 5, true);
-        RunThreads.invoke(LazyInitialized.class, 5, true);
-        RunThreads.invoke(EagerInitialized.class, 5, false);
-        RunThreads.invoke(LazyInitialized.class, 5, false);
+        int count = 5;
+        RunThreads.invoke(EagerInitializedSingleton.class, count, true);
+        RunThreads.invoke(EagerInitializedSingleton.class, count, false);
+
+        RunThreads.invoke(StaticBlockInitializedSingleton.class, count, true);
+        RunThreads.invoke(StaticBlockInitializedSingleton.class, count, false);
+
+        RunThreads.invoke(LazyInitializedSingleton.class, count, true);
+        RunThreads.invoke(LazyInitializedSingleton.class, count, false);
+
+        RunThreads.invoke(ThreadSafeSingleton.class, count, true);
+        RunThreads.invoke(ThreadSafeSingleton.class, count, false);
+
+        RunThreads.invoke(DoubleCheckedLockingSingleton.class, count, true);
+        RunThreads.invoke(DoubleCheckedLockingSingleton.class, count, false);
+
+        RunThreads.invoke(BillPughSingleton.class, count, true);
+        RunThreads.invoke(BillPughSingleton.class, count, false);
     }
 
     static void print(String s, AbstractSingleton instance) {
@@ -33,51 +47,11 @@ public class ThreadSafeTest {
 
         @Override
         public void run() {
-            Object invoke;
-            AbstractSingleton instance = null;
-/*            if (clazz.equals(EagerInitialized.class)) {
-                if (isWithParameters) {
-                    instance = EagerInitialized.getInstance(threadName + " Eager Singleton", 1000);
-                } else {
-                    instance = EagerInitialized.getInstance();
-                }
-            } else if (clazz.equals(LazyInitialized.class)) {
-                if (isWithParameters) {
-                    instance = LazyInitialized.getInstance(threadName + " Lazy Singleton", 1000);
-                } else {
-                    instance = LazyInitialized.getInstance();
-                }
-            } else {
-                if (isWithParameters) {
-                    instance = AbstractSingleton.getInstance(threadName + " Abstract Singleton", 1000);
-                } else {
-                    instance = AbstractSingleton.getInstance();
-                }
-            }*/
-            try {
-                if (isWithParameters) {
-                    invoke = clazz.getDeclaredMethod("getInstance", String.class, Integer.class).invoke(null, threadName + " " + clazz.getSimpleName(), 1000);
-                } else {
-                    invoke = clazz.getDeclaredMethod("getInstance").invoke(null);
-                }
-
-                switch (clazz.getSimpleName()) {
-                    case "EagerInitialized":
-                        instance = (EagerInitialized) invoke;
-                        break;
-                    case "LazyInitialized":
-                        instance = (LazyInitialized) invoke;
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + clazz.getSimpleName());
-                }
-
-            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                e.printStackTrace();
-            }
+            AbstractSingleton instance = new ReflectionFactory().invoke(clazz, threadName, isWithParameters);
 
             print(threadName, instance);
         }
+
     }
 
     private static class RunThreads {
