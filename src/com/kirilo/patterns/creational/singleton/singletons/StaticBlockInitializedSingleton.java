@@ -32,13 +32,13 @@ public class StaticBlockInitializedSingleton extends AbstractSingleton {
         super(value, sleepValue);
     }
 
-    public static AbstractSingleton getInstance() {
+    public static StaticBlockInitializedSingleton getInstance() {
         sleepValue = 1000;
         value = "new default Static Block Singleton"+ new Random().nextInt(100);
         return instance;
     }
 
-    public static AbstractSingleton getInstance(String value, Integer sleepValue) {
+    public static StaticBlockInitializedSingleton getInstance(String value, Integer sleepValue) {
         StaticBlockInitializedSingleton.value = value;
         StaticBlockInitializedSingleton.sleepValue = sleepValue;
         return initialize;

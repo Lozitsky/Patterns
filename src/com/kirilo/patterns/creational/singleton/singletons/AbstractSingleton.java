@@ -29,7 +29,6 @@ public abstract class AbstractSingleton implements Singleton {
 
     // https://javarevisited.blogspot.com/2013/03/can-we-overload-and-override-static-method-java.html
     static AbstractSingleton getInstance(String value, Integer sleepValue) {
-
         return null;
     }
 

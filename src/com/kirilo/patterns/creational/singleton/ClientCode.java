@@ -20,12 +20,15 @@ public class ClientCode {
         startTestSingleton(BillPughSingleton.class, false);
         startTestSingleton(BillPughSingleton.class, true);
 
+        startTestSingleton(EnumSingleton.class, false);
+        startTestSingleton(EnumSingleton.class, true);
+
     }
 
-    private static void startTestSingleton(Class<? extends AbstractSingleton> aClass, boolean isParameters) {
+    private static void startTestSingleton(Class<? extends Singleton> aClass, boolean isParameters) {
 
-        AbstractSingleton singleton;
-        AbstractSingleton anotherSingleton;
+        Singleton singleton;
+        Singleton anotherSingleton;
         switch (aClass.getSimpleName()) {
             case "EagerInitializedSingleton":
                 if (!isParameters) {
@@ -72,6 +75,15 @@ public class ClientCode {
                     anotherSingleton = BillPughSingleton.getInstance(aClass.getSimpleName(), 1000);
                 }
                 break;
+                case "EnumSingleton":
+                if (!isParameters) {
+                    singleton = EnumSingleton.getInstance();
+                    anotherSingleton = EnumSingleton.getInstance();
+                } else {
+                    singleton = EnumSingleton.getInstance(aClass.getSimpleName(), 1000);
+                    anotherSingleton = EnumSingleton.getInstance(aClass.getSimpleName(), 1000);
+                }
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + aClass.getSimpleName());
         }
@@ -79,9 +91,9 @@ public class ClientCode {
     }
 
     // https://stackoverflow.com/a/14443867/9586230
-    private static void testSingleton(AbstractSingleton singleton, AbstractSingleton anotherSingleton, boolean isMethodWithParameters) {
+    private static void testSingleton(Singleton singleton, Singleton anotherSingleton, boolean isMethodWithParameters) {
 
-        AbstractSingleton reflectionSingleton = new ReflectionFactory().invoke(singleton.getClass(), "Reflection", isMethodWithParameters);
+        Singleton reflectionSingleton = new ReflectionFactory().invoke(singleton.getClass(), "Reflection", isMethodWithParameters);
 
         System.out.println("\n==========================Test for " + singleton.getClass().getSimpleName() + (isMethodWithParameters ? " with parameters" : "") + "======================================\n");
         ThreadSafeTest.print("singleton", singleton);

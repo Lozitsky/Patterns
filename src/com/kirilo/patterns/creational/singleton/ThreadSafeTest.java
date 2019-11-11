@@ -22,24 +22,27 @@ public class ThreadSafeTest {
 
         RunThreads.invoke(BillPughSingleton.class, count, true);
         RunThreads.invoke(BillPughSingleton.class, count, false);
+
+        RunThreads.invoke(EnumSingleton.class, count, true);
+        RunThreads.invoke(EnumSingleton.class, count, false);
     }
 
-    static void print(String s, AbstractSingleton instance) {
+    static void print(String s, Singleton instance) {
         String values = instance != null ? (getValues(instance)) : "0";
         System.out.println(s + ": " + values);
     }
 
-    private static String getValues(AbstractSingleton instance) {
+    private static String getValues(Singleton instance) {
         return instance.getValue() + ", " + instance.hashCode();
     }
 
 
     static class ThreadSingleton implements Runnable {
         private String threadName;
-        private Class<? extends AbstractSingleton> clazz;
+        private Class<? extends Singleton> clazz;
         private boolean isWithParameters;
 
-        ThreadSingleton(String threadName, Class<? extends AbstractSingleton> clazz, boolean isWithParameters) {
+        ThreadSingleton(String threadName, Class<? extends Singleton> clazz, boolean isWithParameters) {
             this.threadName = threadName;
             this.clazz = clazz;
             this.isWithParameters = isWithParameters;
@@ -47,7 +50,7 @@ public class ThreadSafeTest {
 
         @Override
         public void run() {
-            AbstractSingleton instance = new ReflectionFactory().invoke(clazz, threadName, isWithParameters);
+            Singleton instance = new ReflectionFactory().invoke(clazz, threadName, isWithParameters);
 
             print(threadName, instance);
         }
@@ -55,7 +58,7 @@ public class ThreadSafeTest {
     }
 
     private static class RunThreads {
-        private static void invoke(Class<? extends AbstractSingleton> clazz, int count, boolean isParameters) {
+        private static void invoke(Class<? extends Singleton> clazz, int count, boolean isParameters) {
             Thread[] threads = new Thread[count];
             for (int i = 0; i < threads.length; i++) {
                 threads[i] = new Thread(new ThreadSingleton("Thread" + i, clazz, isParameters));

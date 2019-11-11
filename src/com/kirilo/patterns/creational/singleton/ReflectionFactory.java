@@ -5,9 +5,9 @@ import com.kirilo.patterns.creational.singleton.singletons.*;
 import java.lang.reflect.InvocationTargetException;
 
 public class ReflectionFactory {
-    public AbstractSingleton invoke(Class<? extends AbstractSingleton> clazz, String name, boolean isWithParameters) {
+    public Singleton invoke(Class<? extends Singleton> clazz, String name, boolean isWithParameters) {
         Object invoke;
-        AbstractSingleton instance = null;
+        Singleton instance = null;
         try {
             if (isWithParameters) {
                 invoke = clazz.getDeclaredMethod("getInstance", String.class, Integer.class).invoke(null, name + " " + clazz.getSimpleName(), 1000);
@@ -33,6 +33,9 @@ public class ReflectionFactory {
                     break;
                 case "BillPughSingleton":
                     instance = (BillPughSingleton) invoke;
+                    break;
+                case "EnumSingleton":
+                    instance = (EnumSingleton) invoke;
                     break;
 
                 default:
