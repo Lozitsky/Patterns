@@ -5,26 +5,34 @@ import com.kirilo.patterns.creational.singleton.singletons.*;
 public class ThreadSafeTest {
     public static void main(String[] args) {
         int count = 5;
+        int slipValue = 3000;
         RunThreads.invoke(EagerInitializedSingleton.class, count, true);
         RunThreads.invoke(EagerInitializedSingleton.class, count, false);
-
-        RunThreads.invoke(StaticBlockInitializedSingleton.class, count, true);
-        RunThreads.invoke(StaticBlockInitializedSingleton.class, count, false);
-
-        RunThreads.invoke(LazyInitializedSingleton.class, count, true);
-        RunThreads.invoke(LazyInitializedSingleton.class, count, false);
-
-        RunThreads.invoke(ThreadSafeSingleton.class, count, true);
-        RunThreads.invoke(ThreadSafeSingleton.class, count, false);
-
-        RunThreads.invoke(DoubleCheckedLockingSingleton.class, count, true);
-        RunThreads.invoke(DoubleCheckedLockingSingleton.class, count, false);
-
-        RunThreads.invoke(BillPughSingleton.class, count, true);
-        RunThreads.invoke(BillPughSingleton.class, count, false);
-
-        RunThreads.invoke(EnumSingleton.class, count, true);
-        RunThreads.invoke(EnumSingleton.class, count, false);
+        try {
+            Thread.sleep(slipValue);
+            RunThreads.invoke(StaticBlockInitializedSingleton.class, count, true);
+            RunThreads.invoke(StaticBlockInitializedSingleton.class, count, false);
+            Thread.sleep(slipValue);
+            RunThreads.invoke(LazyInitializedSingleton.class, count, true);
+            RunThreads.invoke(LazyInitializedSingleton.class, count, false);
+            Thread.sleep(slipValue);
+            RunThreads.invoke(ThreadSafeSingleton.class, count, true);
+            RunThreads.invoke(ThreadSafeSingleton.class, count, false);
+            Thread.sleep(slipValue);
+            RunThreads.invoke(DoubleCheckedLockingSingleton.class, count, true);
+            RunThreads.invoke(DoubleCheckedLockingSingleton.class, count, false);
+            Thread.sleep(slipValue);
+            RunThreads.invoke(BillPughSingleton.class, count, true);
+            RunThreads.invoke(BillPughSingleton.class, count, false);
+            Thread.sleep(slipValue);
+            RunThreads.invoke(EnumSingleton.class, count, true);
+            RunThreads.invoke(EnumSingleton.class, count, false);
+            Thread.sleep(slipValue);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        RunThreads.invoke(SerializationSingleton.class, count, true);
+        RunThreads.invoke(SerializationSingleton.class, count, false);
     }
 
     static void print(String s, Singleton instance) {

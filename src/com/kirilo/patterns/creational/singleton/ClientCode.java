@@ -23,6 +23,9 @@ public class ClientCode {
         startTestSingleton(EnumSingleton.class, false);
         startTestSingleton(EnumSingleton.class, true);
 
+        startTestSingleton(SerializationSingleton.class, false);
+        startTestSingleton(SerializationSingleton.class, true);
+
     }
 
     private static void startTestSingleton(Class<? extends Singleton> aClass, boolean isParameters) {
@@ -75,13 +78,22 @@ public class ClientCode {
                     anotherSingleton = BillPughSingleton.getInstance(aClass.getSimpleName(), 1000);
                 }
                 break;
-                case "EnumSingleton":
+            case "EnumSingleton":
                 if (!isParameters) {
                     singleton = EnumSingleton.getInstance();
                     anotherSingleton = EnumSingleton.getInstance();
                 } else {
                     singleton = EnumSingleton.getInstance(aClass.getSimpleName(), 1000);
                     anotherSingleton = EnumSingleton.getInstance(aClass.getSimpleName(), 1000);
+                }
+                break;
+            case "SerializationSingleton":
+                if (!isParameters) {
+                    singleton = SerializationSingleton.getInstance();
+                    anotherSingleton = SerializationSingleton.getInstance();
+                } else {
+                    singleton = SerializationSingleton.getInstance(aClass.getSimpleName(), 1000);
+                    anotherSingleton = SerializationSingleton.getInstance(aClass.getSimpleName(), 1000);
                 }
                 break;
             default:

@@ -37,6 +37,9 @@ public class ReflectionFactory {
                 case "EnumSingleton":
                     instance = (EnumSingleton) invoke;
                     break;
+                case "SerializationSingleton":
+                    instance = (SerializationSingleton) invoke;
+                    break;
 
                 default:
                     throw new IllegalStateException("Unexpected value: " + clazz.getSimpleName());
