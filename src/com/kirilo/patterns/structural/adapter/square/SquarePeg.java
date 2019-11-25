@@ -1,4 +1,4 @@
-package com.kirilo.patterns.structural.square;
+package com.kirilo.patterns.structural.adapter.square;
 
 public class SquarePeg {
     private double width;

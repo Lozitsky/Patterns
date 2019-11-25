@@ -1,4 +1,4 @@
-package com.kirilo.patterns.structural.round;
+package com.kirilo.patterns.structural.adapter.round;
 
 public class RoundPeg {
     private double radius;

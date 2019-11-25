@@ -1,9 +1,9 @@
-package com.kirilo.patterns.structural;
+package com.kirilo.patterns.structural.adapter;
 
-import com.kirilo.patterns.structural.adapters.SquarePegAdapter;
-import com.kirilo.patterns.structural.round.RoundHole;
-import com.kirilo.patterns.structural.round.RoundPeg;
-import com.kirilo.patterns.structural.square.SquarePeg;
+import com.kirilo.patterns.structural.adapter.adapters.SquarePegAdapter;
+import com.kirilo.patterns.structural.adapter.round.RoundHole;
+import com.kirilo.patterns.structural.adapter.round.RoundPeg;
+import com.kirilo.patterns.structural.adapter.square.SquarePeg;
 
 public class Demo {
     public static void main(String[] args) {

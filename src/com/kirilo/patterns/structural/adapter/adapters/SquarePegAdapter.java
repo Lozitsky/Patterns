@@ -1,7 +1,7 @@
-package com.kirilo.patterns.structural.adapters;
+package com.kirilo.patterns.structural.adapter.adapters;
 
-import com.kirilo.patterns.structural.round.RoundPeg;
-import com.kirilo.patterns.structural.square.SquarePeg;
+import com.kirilo.patterns.structural.adapter.round.RoundPeg;
+import com.kirilo.patterns.structural.adapter.square.SquarePeg;
 
 public class SquarePegAdapter extends RoundPeg {
     SquarePeg peg;
