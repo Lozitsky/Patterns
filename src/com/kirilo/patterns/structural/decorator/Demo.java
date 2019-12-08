@@ -7,8 +7,13 @@ public class Demo {
         String someString = "This is some string,\n and one another string.";
         String fileName = "E:/Temp/" + "someFile_" + (int)(Math.random() * 100) + "txt";
         DataSourceDecorator decorator = new CompressionDecorator(new EncryptionDecorator(new FileDataSource(fileName)));
+//        DataSourceDecorator decorator = new EncryptionDecorator(new CompressionDecorator(new FileDataSource(fileName)));
+//        DataSourceDecorator decorator = new CompressionDecorator(new FileDataSource(fileName));
 //        DataSourceDecorator decorator = new EncryptionDecorator(new FileDataSource(fileName));
 
+        if (decorator instanceof CompressionDecorator) {
+            ((CompressionDecorator) decorator).setCompLevel(9);
+        }
         decorator.writeData(someString);
         DataSource fileDataSource = new FileDataSource(fileName);
         System.out.println("Input string: " + someString);

@@ -10,10 +10,6 @@ public class FileDataSource implements DataSource {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
     @Override
     public void writeData(String data) {
         File file = new File(name);
