@@ -46,7 +46,7 @@ public class ShapesEditor extends JComponent implements Editor {
     @Override
     public void undo() {
         if (history.undo()) {
-            canvas.clear();
+            canvas.refresh();
             canvas.repaint();
         }
     }
@@ -54,7 +54,7 @@ public class ShapesEditor extends JComponent implements Editor {
     @Override
     public void redo() {
         if (history.redo()) {
-            canvas.clear();
+            canvas.refresh();
             canvas.repaint();
         }
     }

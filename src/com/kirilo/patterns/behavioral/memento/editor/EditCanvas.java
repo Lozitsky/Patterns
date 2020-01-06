@@ -146,10 +146,6 @@ class EditCanvas extends Canvas {
         g.drawImage(bufferedImage, 0, 0, null);
     }
 
-    public void clear() {
-        super.getGraphics().clearRect(0, 0, frame.getWidth(), frame.getHeight());
-    }
-
     @Override
     public void update(Graphics g) {
         paint(g);
