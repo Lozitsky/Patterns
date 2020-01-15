@@ -1,5 +1,8 @@
 package com.kirilo.patterns.behavioral.iterator;
 
+import com.kirilo.patterns.behavioral.iterator.iterators.Iterator;
+import com.kirilo.patterns.behavioral.iterator.iterators.NameRepository;
+
 public class Demo {
     public static void main(String[] args) {
         NameRepository nameRepository = new NameRepository();

@@ -1,4 +1,4 @@
-package com.kirilo.patterns.behavioral.iterator;
+package com.kirilo.patterns.behavioral.iterator.iterators;
 
 public class NameRepository implements Container {
     private String[] names;
