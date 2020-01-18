@@ -6,7 +6,7 @@ import com.kirilo.patterns.creational.builder.director.Director;
 import com.kirilo.patterns.creational.builder.objects.Car;
 import com.kirilo.patterns.creational.builder.objects.Manual;
 
-public class ClientCode {
+public class Demo {
     public static void main(String[] args) {
         Director director = new Director();
         CarBuilder carBuilder = new CarBuilder();

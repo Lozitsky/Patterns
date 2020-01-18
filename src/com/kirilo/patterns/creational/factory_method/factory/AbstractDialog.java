@@ -9,7 +9,7 @@ public abstract class AbstractDialog implements Dialog {
         okButton.render();
     }
 
-    //    Factory Method pattern
+    //    Factory Method
     @Override
     public abstract Button createButton();
 }

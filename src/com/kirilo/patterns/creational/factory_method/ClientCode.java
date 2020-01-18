@@ -16,16 +16,14 @@ public class ClientCode {
         dialog.renderWindow();
     }
 
-//    an example of a Simple factory pattern
+    //    an example of a Simple factory
     private static void configSimpleFactory() {
-        switch (System.getProperty("os.name")) {
+        String os = System.getProperty("os.name");
+        switch (os) {
             case "Windows NT":
-                System.out.println("Windows NT");
-                break;
             case "Windows 7":
-                dialog = new WindowsDialog();
-                break;
             case "Windows 10":
+                System.out.println(os);
                 dialog = new WindowsDialog();
                 break;
             default:

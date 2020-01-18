@@ -16,6 +16,7 @@ public class WindowsButton implements Button {
     @Override
     public void render() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
         JLabel label = new JLabel("Hello World!");
         label.setOpaque(true);
         label.setBackground(new Color(235, 233, 126));
@@ -35,6 +36,9 @@ public class WindowsButton implements Button {
     @Override
     public void onClick() {
         button = new JButton("Exit");
-        button.addActionListener(e -> frame.setVisible(true));
+        button.addActionListener(e -> {
+            frame.setVisible(false);
+            System.exit(0);
+        });
     }
 }

@@ -21,21 +21,16 @@ public class Manual {
 
     public String print() {
         StringBuilder info = new StringBuilder()
-                .append("Type of car: ").append(type).append("\n")
-                .append("Count of seats: ").append(seats).append("\n")
-                .append("Engine: volume - ").append(engine.getVolume())
-                .append("; mileage - ").append(engine.getMileage()).append("\n")
-                .append("Transmission: ").append(transmission).append("\n");
-        if (this.tripComputer != null) {
-            info.append(new StringBuilder().append("Trip Computer: Functional").append("\n").toString());
-        } else {
-            info.append("Trip Computer: N/A").append("\n");
-        }
-        if (this.gpsNavigator != null) {
-            info.append("GPS Navigator: Functional").append("\n");
-        } else {
-            info.append("GPS Navigator: N/A").append("\n");
-        }
+                .append(String.format("Type of car: %s\n", type))
+                .append(String.format("Count of seats: %d\n", seats))
+                .append(String.format("Engine: volume - %1$.2f; mileage - %2$.2f\n", engine.getVolume(), engine.getMileage()))
+                .append(String.format("Transmission: %s\n", transmission))
+                .append(String.format("Trip Computer: %s\n", getInfo(this.tripComputer != null)))
+                .append(String.format("GPS Navigator: %s\n", getInfo(this.gpsNavigator != null)));
         return info.toString();
+    }
+
+    private String getInfo(boolean predicate) {
+        return predicate ? "Functional" : "N/A";
     }
 }
