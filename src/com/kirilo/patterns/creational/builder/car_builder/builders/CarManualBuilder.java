@@ -1,7 +1,7 @@
-package com.kirilo.patterns.creational.builder.builders;
+package com.kirilo.patterns.creational.builder.car_builder.builders;
 
-import com.kirilo.patterns.creational.builder.components.*;
-import com.kirilo.patterns.creational.builder.objects.Manual;
+import com.kirilo.patterns.creational.builder.car_builder.components.*;
+import com.kirilo.patterns.creational.builder.car_builder.objects.Manual;
 
 public class CarManualBuilder implements Builder {
     private Type type;

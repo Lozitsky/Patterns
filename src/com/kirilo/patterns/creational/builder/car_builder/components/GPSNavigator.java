@@ -1,4 +1,4 @@
-package com.kirilo.patterns.creational.builder.components;
+package com.kirilo.patterns.creational.builder.car_builder.components;
 
 public class GPSNavigator {
     private String route;

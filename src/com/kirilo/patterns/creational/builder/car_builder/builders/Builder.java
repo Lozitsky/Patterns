@@ -1,6 +1,6 @@
-package com.kirilo.patterns.creational.builder.builders;
+package com.kirilo.patterns.creational.builder.car_builder.builders;
 
-import com.kirilo.patterns.creational.builder.components.*;
+import com.kirilo.patterns.creational.builder.car_builder.components.*;
 
 public interface Builder {
     void setType(Type type);

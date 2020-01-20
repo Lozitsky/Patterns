@@ -1,10 +1,10 @@
-package com.kirilo.patterns.creational.builder;
+package com.kirilo.patterns.creational.builder.car_builder;
 
-import com.kirilo.patterns.creational.builder.builders.CarBuilder;
-import com.kirilo.patterns.creational.builder.builders.CarManualBuilder;
-import com.kirilo.patterns.creational.builder.director.Director;
-import com.kirilo.patterns.creational.builder.objects.Car;
-import com.kirilo.patterns.creational.builder.objects.Manual;
+import com.kirilo.patterns.creational.builder.car_builder.builders.CarBuilder;
+import com.kirilo.patterns.creational.builder.car_builder.builders.CarManualBuilder;
+import com.kirilo.patterns.creational.builder.car_builder.director.Director;
+import com.kirilo.patterns.creational.builder.car_builder.objects.Car;
+import com.kirilo.patterns.creational.builder.car_builder.objects.Manual;
 
 public class Demo {
     public static void main(String[] args) {

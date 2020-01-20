@@ -1,7 +1,7 @@
-package com.kirilo.patterns.creational.builder.director;
+package com.kirilo.patterns.creational.builder.car_builder.director;
 
-import com.kirilo.patterns.creational.builder.builders.Builder;
-import com.kirilo.patterns.creational.builder.components.*;
+import com.kirilo.patterns.creational.builder.car_builder.builders.Builder;
+import com.kirilo.patterns.creational.builder.car_builder.components.*;
 
 public class Director {
     public void constructSportsCar(Builder builder) {

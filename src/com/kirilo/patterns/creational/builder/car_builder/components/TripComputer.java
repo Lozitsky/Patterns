@@ -1,6 +1,6 @@
-package com.kirilo.patterns.creational.builder.components;
+package com.kirilo.patterns.creational.builder.car_builder.components;
 
-import com.kirilo.patterns.creational.builder.objects.Car;
+import com.kirilo.patterns.creational.builder.car_builder.objects.Car;
 
 public class TripComputer {
     private Car car;
