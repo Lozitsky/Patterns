@@ -18,10 +18,10 @@ public class ClientCacheCode {
         }
 
         if (shape2 != shape3) {
-            System.out.println("Medium blue rectangle are different objects");
+            System.out.println("Medium blue rectangles are different objects");
             if (shape2.equals(shape3)) {
                 System.out.println("And they are identical.");
-                System.out.println("shape2: " + shape2.hashCode() + "\nshape3: " + shape3.hashCode());
+                System.out.printf("shape2: %d\nshape3: %d%n", shape2.hashCode(), shape3.hashCode());
             } else {
                 System.out.println("But they are not identical.");
             }

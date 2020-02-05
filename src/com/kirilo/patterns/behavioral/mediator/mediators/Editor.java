@@ -58,7 +58,7 @@ public class Editor implements Mediator {
             Note note = listNotes.getCurrentElement();
             String name = note.getName();
             if (!name.endsWith("*")) {
-                note.setName(note.getName() + "*");
+                note.setName(String.format("%s*", name));
             }
             listNotes.repaint();
         } catch (NullPointerException e) {

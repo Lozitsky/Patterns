@@ -1,8 +1,8 @@
 package com.kirilo.patterns.behavioral.mediator.components;
 
 import com.kirilo.patterns.behavioral.mediator.mediators.Elements;
-import com.kirilo.patterns.behavioral.mediator.notes.Note;
 import com.kirilo.patterns.behavioral.mediator.mediators.Mediator;
+import com.kirilo.patterns.behavioral.mediator.notes.Note;
 
 import javax.swing.*;
 
@@ -32,9 +32,10 @@ public class ListNotes extends JList<Note> implements Component {
     }
 
     public void deleteElement() {
-        int index = getSelectedIndex();
         try {
-            LIST_MODEL.remove(index);
+            for (Note note : getSelectedValuesList()) {
+                LIST_MODEL.removeElement(note);
+            }
             mediator.sendToFilter(LIST_MODEL);
         } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
