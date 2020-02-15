@@ -1,6 +1,6 @@
-package com.kirilo.patterns.creational.factory_method.factory;
+package com.kirilo.patterns.creational.factory_method.example1.factory;
 
-import com.kirilo.patterns.creational.factory_method.buttons.Button;
+import com.kirilo.patterns.creational.factory_method.example1.buttons.Button;
 
 public abstract class AbstractDialog implements Dialog {
     @Override

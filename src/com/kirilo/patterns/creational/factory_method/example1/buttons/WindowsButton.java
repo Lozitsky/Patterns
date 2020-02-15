@@ -1,4 +1,5 @@
-package com.kirilo.patterns.creational.factory_method.buttons;
+package com.kirilo.patterns.creational.factory_method.example1.buttons;
+
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package com.kirilo.patterns.creational.factory_method.buttons;
+package com.kirilo.patterns.creational.factory_method.example1.buttons;
 
 public class HtmlButton implements Button {
     @Override

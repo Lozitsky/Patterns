@@ -1,8 +1,5 @@
-package com.kirilo.patterns.creational.factory_method;
-
-import com.kirilo.patterns.creational.factory_method.factory.Dialog;
-import com.kirilo.patterns.creational.factory_method.factory.HtmlDialog;
-import com.kirilo.patterns.creational.factory_method.factory.WindowsDialog;
+package com.kirilo.patterns.creational.factory_method.example1;
+import com.kirilo.patterns.creational.factory_method.example1.factory.*;
 
 public class ClientCode {
     private static Dialog dialog;
