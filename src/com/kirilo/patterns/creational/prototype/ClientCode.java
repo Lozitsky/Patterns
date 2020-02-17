@@ -40,13 +40,14 @@ public class ClientCode {
             if (shapes.get(i) != shapesCopy.get(i)) {
                 System.out.println(i + ": Shapes are different objects");
                 if (shapes.get(i).equals(shapesCopy.get(i))) {
-                    System.out.println(i + ": And they are identical.");
+                    System.out.println(i + ": But they are identical.");
                 } else {
-                    System.out.println(i + ": But they are not identical.");
+                    System.out.println(i + ": And they are not identical.");
                 }
             } else {
                 System.out.println(i + ": Shape objects are the same.");
             }
+            MemoryInfo.getMemoryInfo(shapes.get(i), shapesCopy.get(i));
         }
     }
 }

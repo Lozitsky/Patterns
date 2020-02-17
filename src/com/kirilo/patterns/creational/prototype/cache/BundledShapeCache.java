@@ -36,4 +36,13 @@ public class BundledShapeCache {
     public Shape get(String key) {
         return cache.get(key).clone();
     }
+
+    public String getKey(Shape shape) {
+        for (String key : cache.keySet()) {
+            if (cache.get(key).equals(shape)) {
+                return key;
+            }
+        }
+        return null;
+    }
 }
