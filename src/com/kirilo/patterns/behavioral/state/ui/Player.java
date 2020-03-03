@@ -1,32 +1,57 @@
 package com.kirilo.patterns.behavioral.state.ui;
 
-import com.kirilo.patterns.behavioral.state.states.ReadyState;
-import com.kirilo.patterns.behavioral.state.states.State;
+import com.kirilo.patterns.behavioral.state.states.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static com.kirilo.patterns.behavioral.state.states.StatesEnum.ready;
 
 public class Player {
     private State state;
+    private Map<StatesEnum, State> states;
     private boolean playing;
     private List<String> playlist;
     private int currentTrack;
 
     public Player() {
         playlist = new ArrayList<>();
-        state = new ReadyState(this);
+        states = new HashMap<>();
+//        state = new ReadyState(this);
+        state = StateFactory(ready);
         setPlaying(true);
         for (int i = 0; i <= 12; i++) {
             playlist.add("Track " + i);
         }
     }
 
+    private State StateFactory(StatesEnum StateName) {
+        State state = states.get(StateName);
+        if (state == null) {
+            switch (StateName) {
+                case locked:
+                    state = new LockedState(this);
+                    break;
+                case playing:
+                    state = new PlayingState(this);
+                    break;
+                default:
+                    state = new ReadyState(this);
+                    break;
+            }
+            states.put(StateName, state);
+        }
+        return state;
+    }
+
     public State getState() {
         return state;
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public void setState(StatesEnum stateName) {
+        state = StateFactory(stateName);
     }
 
     public boolean isPlaying() {

@@ -2,6 +2,9 @@ package com.kirilo.patterns.behavioral.state.states;
 
 import com.kirilo.patterns.behavioral.state.ui.Player;
 
+import static com.kirilo.patterns.behavioral.state.states.StatesEnum.locked;
+import static com.kirilo.patterns.behavioral.state.states.StatesEnum.playing;
+
 public class ReadyState extends BaseState {
     private Player player;
 
@@ -12,14 +15,14 @@ public class ReadyState extends BaseState {
 
     @Override
     public String onLock() {
-        player.setState(new LockedState(player));
+        player.setState(locked);
         return "Locked...";
     }
 
     @Override
     public String onPlay() {
         String action = player.startPlayback();
-        player.setState(new PlayingState(player));
+        player.setState(playing);
         return action;
     }
 
